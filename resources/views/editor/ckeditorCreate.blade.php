@@ -4,6 +4,12 @@
     <title>CKEditor 적용</title>
     <link rel="stylesheet" href="{{ asset('/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/ckeditor5/ckeditor5.css') }}">
+    <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        var token = document.querySelector('meta[name="csrf-token"]').getAttribute('editor');
+    </script>
 </head>
 <body>
 <form action="{{ route('editor.ckEditorStore') }}" method="POST">

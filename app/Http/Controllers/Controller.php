@@ -44,4 +44,17 @@ abstract class Controller
 
         return redirect()->route($this->getName('index'));
     }
+
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'upload' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $path = $request->file('upload')->store('images', 'public');
+
+        return response()->json([
+            'url' => Storage::url($path),
+        ]);
+    }
 }

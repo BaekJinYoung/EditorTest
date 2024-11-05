@@ -13,6 +13,7 @@ Route::prefix('editor')->group(function () { // 관리자 페이지
         Route::prefix($prefix)->controller($controller)->group(function () use ($prefix) {
             Route::get('/', 'index')->name("editor.{$prefix}Index");
             Route::get('/create', 'create')->name("editor.{$prefix}Create");
+            Route::post('/upload', 'store')->name("editor.{$prefix}Upload");
             Route::post('/store', 'store')->name("editor.{$prefix}Store");
             Route::get('/{id}/edit', 'edit')->name("editor.{$prefix}Edit");
             Route::patch('/{id}', 'update')->name("editor.{$prefix}Update");
