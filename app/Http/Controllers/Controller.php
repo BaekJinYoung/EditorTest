@@ -29,4 +29,19 @@ abstract class Controller
 
         return view($this->getName('create'));
     }
+
+    public function store(Request $request) {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $this->model->create($data);
+
+        if ($request->filled('continue')) {
+            return redirect()->route($this->getName('create'));
+        }
+
+        return redirect()->route($this->getName('index'));
+    }
 }
