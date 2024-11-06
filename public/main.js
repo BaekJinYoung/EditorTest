@@ -266,7 +266,7 @@ const editorConfig = {
     simpleUpload: {
         uploadUrl: imageUploadUrl, // 파일 업로드 URL
         headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('editor')
         }
     },
 	initialData: initialContent,

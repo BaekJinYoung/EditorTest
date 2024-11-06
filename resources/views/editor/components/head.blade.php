@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('/ckeditor5/ckeditor5.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
-        var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        var token = document.querySelector('meta[name="csrf-token"]').getAttribute('editor');
     @if (Route::is('editor.ckEditorCreate'))
         var initialContent = "";
     @elseif (Route::is('editor.ckEditorEdit'))
