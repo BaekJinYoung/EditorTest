@@ -14,15 +14,16 @@
 
     <link rel="stylesheet" href="{{ asset('/ckeditor5/ckeditor5.css') }}">
     <link rel="stylesheet" href="{{ asset('/style.css') }}">
-    <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    @if (Route::is('editor.ckEditorCreate'))
+
+    @if ( Route::is('editor.ckEditorCreate') )
         var initialContent = "";
-    @elseif (Route::is('editor.ckEditorEdit'))
+    @elseif ( Route::is('editor.ckEditorEdit') )
         var initialContent = @json($item->content);
     @endif
+
         var imageUploadUrl = "{{ route('editor.ckEditorUpload') }}";
     </script>
     <script type="importmap">
