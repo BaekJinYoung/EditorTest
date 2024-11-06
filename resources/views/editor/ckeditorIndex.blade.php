@@ -15,31 +15,6 @@
     <script src="{{ asset('/ckeditor5/translations/ko.js') }}"></script>
 </head>
 <body>
-<div>
-    <div class="main-container">
-        <div class="editor-container editor-container_classic-editor" id="editor-container">
-            <div class="editor-container__editor"><div id="editor"></div></div>
-        </div>
-    </div>
-</div>
-<script type="importmap">
-    {
-        "imports": {
-            "ckeditor5": "{{ asset('/ckeditor5/ckeditor5.js') }}",
-            "ckeditor5/": "{{ asset('/ckeditor5') }}/"
-        }
-    }
-</script>
-<script type="module" src="{{ asset('/main.js') }}"></script>
-<!-- A friendly reminder to run on a server, remove this during the integration. -->
-<script>
-    ClassicEditor
-        .create( document.querySelector( '#classic' ), {
-            language: 'ko' //언어설정
-        })
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
+<h1>인덱스 페이지</h1>
 </body>
 </html>
