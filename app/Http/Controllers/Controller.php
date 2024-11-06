@@ -16,7 +16,15 @@ abstract class Controller
 
     protected function getName($view) // 이동할 페이지 이름
     {
-        return 'editor.' . strtolower(class_basename($this->model)) . ucfirst($view);
+        $modelName = class_basename($this->model);
+
+        if ($modelName === 'CkEditor') {
+            $modelName = 'ckEditor';
+        } else {
+            $modelName = strtolower($modelName);
+        }
+
+        return 'editor.' . $modelName . ucfirst($view);
     }
 
     public function index(Request $request)
