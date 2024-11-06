@@ -273,7 +273,7 @@ const editorConfig = {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }
     },
-	initialData: '',
+	initialData: initialContent,
 	language: 'ko',
 	link: {
 		addTargetToExternalLinks: true,
