@@ -29,14 +29,11 @@ abstract class Controller
 
     public function index(Request $request)
     {
+        $query = $this->model->query();
 
-        return view($this->getName('index'));
-    }
+        $items = $query->orderBy('id', 'desc')->get();
 
-    public function create(Request $request)
-    {
-
-        return view($this->getName('create'));
+        return view($this->getName('index'), compact('items'));
     }
 
     public function store(Request $request) {
@@ -65,5 +62,44 @@ abstract class Controller
         return response()->json([
             'url' => Storage::url($path),
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $item = $this->model->find($id);
+
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $item->update($data);
+
+        return redirect()->route($this->getName('index'));
+    }
+
+    public function edit($id)
+    {
+        $item = $this->model->find($id);
+
+        if (!$item) {
+            return redirect()->route($this->getName('index'))->with('error', '해당 게시물을 찾을 수 없습니다.');
+        }
+
+        return view($this->getName('edit'), compact('item'));
+    }
+
+    public function create(Request $request)
+    {
+
+        return view($this->getName('create'));
+    }
+
+    public function destroy($item)
+    {
+        $item = $this->model->findOrFail($item);
+        $item->delete();
+
+        return redirect()->route($this->getName('index'));
     }
 }

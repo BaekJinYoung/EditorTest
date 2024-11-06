@@ -1,20 +1,73 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>CKEditor 5 Sample</title>
-    <link rel="icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/96x96.png" sizes="96x96">
-    <link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/120x120.png" sizes="120x120">
-    <link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/152x152.png" sizes="152x152">
-    <link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/167x167.png" sizes="167x167">
-    <link rel="apple-touch-icon" type="image/png" href="https://ckeditor.com/assets/images/favicons/180x180.png" sizes="180x180">
-    <link rel="stylesheet" href="{{ asset('/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('/ckeditor5/ckeditor5.css') }}">
-    <script src="{{ asset('/ckeditor5/ckeditor5.js') }}"></script>
-    <script src="{{ asset('/ckeditor5/translations/ko.js') }}"></script>
-</head>
+<!DOCTYPE html>
+<html lang="ko">
 <body>
-<h1>인덱스 페이지</h1>
+<div id="wrap">
+    <div class="admin-container">
+        <header id="header">
+        </header>
+        <div class="admin-wrap">
+            <div class="table-wrap">
+                <div class="title-wrap col-group">
+                    <div class="main-title-wrap col-group">
+                        <h2 class="main-title">
+                            에디터
+                        </h2>
+                    </div>
+                </div>
+                <table class="admin-table">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="20%">
+                        <col width="60%">
+                        <col width="10%">
+                    </colgroup>
+                    <thead class="admin-thead">
+                    <tr class="admin-tr">
+                        <th class="admin-th">번호</th>
+                        <th class="admin-th">제목</th>
+                        <th class="admin-th">내용</th>
+                        <th class="admin-th">상세</th>
+                    </tr>
+                    </thead>
+                    <tbody class="admin-tbody">
+                        @foreach($items as $key => $item)
+                            <tr class="admin-tr">
+                                <td class="admin-td">{{ $item->id }}</td>
+                                <td class="admin-td">{{ $item->title }}</td>
+                                <td class="admin-td">{{ $item->content }}</td>
+                                <td class="admin-td">
+                                    <div class="btn-wrap col-group">
+                                        <a href="{{ route("editor.ckEditorEdit", $item->id) }}" class="btn">
+                                            상세
+                                        </a>
+                                        <form action="{{ route("editor.ckEditorDestroy", $item->id) }}" method="post"
+                                              onsubmit="return confirmDelete();">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn del-btn">
+                                                삭제
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updatePageCount() {
+        var pageCount = document.getElementById('pageCount').value;
+        window.location.href = '?perPage=' + pageCount;
+    }
+
+    function confirmDelete() {
+        return confirm("정말로 삭제하시겠습니까?");
+    }
+</script>
 </body>
 </html>
