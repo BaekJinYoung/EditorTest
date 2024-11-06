@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>CKEditor 적용</title>
-    <link rel="stylesheet" href="{{ asset('/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('/ckeditor5/ckeditor5.css') }}">
-    <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script>
-        var token = document.querySelector('meta[name="csrf-token"]').getAttribute('editor');
-        var initialContent = "";
-        var imageUploadUrl = "{{ route('editor.ckEditorUpload') }}";
-    </script>
-</head>
+@include('editor.components.head')
 <body>
 <form action="{{ route('editor.ckEditorStore') }}" method="POST">
     @csrf
@@ -28,14 +16,6 @@
     <button type="submit">Submit</button>
 </form>
 
-<script type="importmap">
-    {
-        "imports": {
-            "ckeditor5": "{{ asset('/ckeditor5/ckeditor5.js') }}",
-            "ckeditor5/": "{{ asset('/ckeditor5') }}/"
-        }
-    }
-</script>
 <script type="module" src="{{ asset('/main.js') }}"></script>
 
 </body>
