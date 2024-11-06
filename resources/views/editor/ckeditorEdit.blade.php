@@ -4,7 +4,22 @@
 <body>
 <div id="wrap">
     <div class="admin-container">
+        <header id="header">
+            @include('editor.components.snb')
+        </header>
         <div class="admin-wrap">
+            @if ($errors->any())
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
             <div class="title-wrap col-group">
                 <h2 class="main-title">

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
+@include('editor.components.head')
 <body>
 <div id="wrap">
     <div class="admin-container">
         <header id="header">
+            @include('editor.components.snb')
         </header>
         <div class="admin-wrap">
             <div class="table-wrap">
@@ -12,6 +14,11 @@
                         <h2 class="main-title">
                             에디터
                         </h2>
+                    </div>
+                    <div class="top-btn-wrap">
+                        <a href="{{ route("editor.ckEditorCreate") }}" class="top-btn">
+                            등록
+                        </a>
                     </div>
                 </div>
                 <table class="admin-table">
