@@ -43,7 +43,7 @@
                             내용
                             <span class="red">*</span>
                         </p>
-                        <textarea name="content" id="editor"></textarea>
+                        <textarea name="content" id="content"></textarea>
                     </div>
                 </div>
 
