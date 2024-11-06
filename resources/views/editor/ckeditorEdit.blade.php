@@ -5,11 +5,11 @@
     <link rel="stylesheet" href="{{ asset('/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/ckeditor5/ckeditor5.css') }}">
     <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         var token = document.querySelector('meta[name="csrf-token"]').getAttribute('editor');
         var initialContent = @json($item->content);
+        var imageUploadUrl = "{{ route('editor.ckEditorUpload') }}";
     </script>
 </head>
 <body>
@@ -56,10 +56,6 @@
     </div>
 </div>
 
-<script>
-    // 서버에서 넘겨준 content 데이터를 JavaScript 변수로 할당합니다.
-
-</script>
 <script type="importmap">
     {
         "imports": {

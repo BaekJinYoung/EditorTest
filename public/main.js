@@ -268,7 +268,7 @@ const editorConfig = {
 		]
 	},
     simpleUpload: {
-        uploadUrl: 'http://127.0.0.1:8000/editor/ckEditor/upload', // 파일 업로드 URL
+        uploadUrl: imageUploadUrl, // 파일 업로드 URL
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }

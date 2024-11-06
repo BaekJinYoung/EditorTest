@@ -9,6 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         var token = document.querySelector('meta[name="csrf-token"]').getAttribute('editor');
+        var initialContent = "";
+        var imageUploadUrl = "{{ route('editor.ckEditorUpload') }}";
     </script>
 </head>
 <body>
