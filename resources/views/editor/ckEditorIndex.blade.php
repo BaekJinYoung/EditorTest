@@ -4,9 +4,6 @@
 <body>
 <div id="wrap">
     <div class="admin-container">
-        <header id="header">
-            @include('editor.components.snb')
-        </header>
         <div class="admin-wrap">
             <div class="table-wrap">
                 <div class="title-wrap col-group">

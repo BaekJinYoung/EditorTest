@@ -293,7 +293,7 @@ const editorConfig = {
 	},
 	placeholder: 'Type or paste your content here!',
 	table: {
-		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
 	},
 	translations: [translations]
 };

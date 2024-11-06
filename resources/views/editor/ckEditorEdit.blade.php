@@ -4,9 +4,6 @@
 <body>
 <div id="wrap">
     <div class="admin-container">
-        <header id="header">
-            @include('editor.components.snb')
-        </header>
         <div class="admin-wrap">
             @if ($errors->any())
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
