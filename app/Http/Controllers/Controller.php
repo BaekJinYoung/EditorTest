@@ -51,7 +51,7 @@ abstract class Controller
         return redirect()->route($this->getName('index'));
     }
 
-    public function upload(Request $request)
+    public function upload(Request $request) // 에디터 이미지 업로드
     {
         $request->validate([
             'upload' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',

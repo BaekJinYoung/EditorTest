@@ -38,7 +38,7 @@
                             <tr class="admin-tr">
                                 <td class="admin-td">{{ $item->id }}</td>
                                 <td class="admin-td">{{ $item->title }}</td>
-                                <td class="admin-td">{{ $item->content }}</td>
+                                <td class="admin-td">{!! $item->content !!}</td>
                                 <td class="admin-td">
                                     <div class="btn-wrap col-group">
                                         <a href="{{ route("editor.ckEditorEdit", $item->id) }}" class="btn">

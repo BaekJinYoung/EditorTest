@@ -13,14 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-#      - name: Set up PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: '8.2'
-#          extensions: mbstring, intl, mysql
-#
-#      - name: Install Composer dependencies
-#        run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, intl, mysql
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
       - name: Start SSH Agent
         uses: webfactory/ssh-agent@v0.5.3
@@ -32,89 +32,89 @@ jobs:
           mkdir -p ~/.ssh || { echo "Failed to create .ssh directory"; exit 1; }
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts || { echo "Failed to add server host key to known_hosts"; exit 1; }
 
-#      - name: Copy install.sh to server
-#        run: scp scripts/install.sh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/install.sh
-#
-#      - name: Execute install.sh on server
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.SERVER_HOST }}
-#          username: ${{ secrets.SERVER_USER }}
-#          key: ${{ secrets.SSH_PRIVATE_KEY }}
-#          script: |
-#            echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
-#            sudo apt-get update
-#            sudo apt upgrade -y
-#            sudo apt --fix-broken install
-#            sudo mkdir -p /home/${{ secrets.SERVER_USER }}/laravel
-#            sudo chown -R $USER:$USER /home/${{ secrets.SERVER_USER }}/laravel
-#            cd /home/${{ secrets.SERVER_USER }}/laravel
-#            git init
-#            git remote add origin https://BaekJinYoung:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/BaekJinYoung/${{ secrets.SERVER_NAME }}.git
-#            git fetch
-#            git checkout main
-#            git pull origin main
-#            sudo -u ${{ secrets.SERVER_USER }} bash /home/${{ secrets.SERVER_USER }}/install.sh
-#            sudo find /home/${{ secrets.SERVER_USER }}/laravel -type f -exec chmod 644 {} \;
-#            sudo find /home/${{ secrets.SERVER_USER }}/laravel -type d -exec chmod 755 {} \;
-#            sudo chmod 664 composer.json
-#            sudo chown $USER:$USER composer.json
-#            sudo chmod -R 775 ~/laravel
-#            sudo chown $USER:$USER composer.json composer.lock
-#            sudo chown -R $USER:$USER ~/laravel
-#
-#            sudo usermod -a -G www-data ${{ secrets.SERVER_USER }}
-#            sudo chown -R ${{ secrets.SERVER_USER }}:www-data storage bootstrap/cache
-#            sudo find storage bootstrap/cache -type d -exec chmod 775 {} \;
-#            sudo find storage bootstrap/cache -type f -exec chmod 664 {} \;
-#            sudo systemctl restart nginx
+      - name: Copy install.sh to server
+        run: scp scripts/install.sh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/install.sh
 
-      - name: Deploy via SSH
+      - name: Execute install.sh on server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo chown -R $(whoami) /home/${{ secrets.SERVER_USER }}/laravel
-            chmod -R u+rwX /home/${{ secrets.SERVER_USER }}/laravel
-
+            echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
+            sudo apt-get update
+            sudo apt upgrade -y
+            sudo apt --fix-broken install
+            sudo mkdir -p /home/${{ secrets.SERVER_USER }}/laravel
+            sudo chown -R $USER:$USER /home/${{ secrets.SERVER_USER }}/laravel
             cd /home/${{ secrets.SERVER_USER }}/laravel
             git init
-            git remote set-url origin https://BaekJinYoung:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/BaekJinYoung/${{ secrets.SERVER_NAME }}.git
-            git config --global --add safe.directory /home/${{ secrets.SERVER_USER }}/laravel
+            git remote add origin https://BaekJinYoung:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/BaekJinYoung/${{ secrets.SERVER_NAME }}.git
             git fetch
             git checkout main
-            git stash
             git pull origin main
-            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-            php artisan migrate --force
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-
+            sudo -u ${{ secrets.SERVER_USER }} bash /home/${{ secrets.SERVER_USER }}/install.sh
+            sudo find /home/${{ secrets.SERVER_USER }}/laravel -type f -exec chmod 644 {} \;
+            sudo find /home/${{ secrets.SERVER_USER }}/laravel -type d -exec chmod 755 {} \;
             sudo chmod 664 composer.json
             sudo chown $USER:$USER composer.json
             sudo chmod -R 775 ~/laravel
             sudo chown $USER:$USER composer.json composer.lock
             sudo chown -R $USER:$USER ~/laravel
 
-            sudo chown -R www-data:www-data /home/${{ secrets.SERVER_USER }}/laravel/storage
-            sudo chmod -R 775 /home/${{ secrets.SERVER_USER }}/laravel/storage
-            sudo chown -R www-data:www-data /home/${{ secrets.SERVER_USER }}/laravel
-            sudo chmod -R 775 /home/${{ secrets.SERVER_USER }}/laravel
-            sudo chown -R ${{ secrets.SERVER_USER }}:${{ secrets.SERVER_USER }} /home/${{ secrets.SERVER_USER }}
-            sudo chmod -R 755 /home/${{ secrets.SERVER_USER }}
-
             sudo usermod -a -G www-data ${{ secrets.SERVER_USER }}
             sudo chown -R ${{ secrets.SERVER_USER }}:www-data storage bootstrap/cache
             sudo find storage bootstrap/cache -type d -exec chmod 775 {} \;
             sudo find storage bootstrap/cache -type f -exec chmod 664 {} \;
-
             sudo systemctl restart nginx
 
-            sudo php artisan config:cache
-            php artisan cache:clear
-            php artisan config:clear
-            php artisan route:clear
-            php artisan view:clear
+#      - name: Deploy via SSH
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.SERVER_HOST }}
+#          username: ${{ secrets.SERVER_USER }}
+#          key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          script: |
+#            sudo chown -R $(whoami) /home/${{ secrets.SERVER_USER }}/laravel
+#            chmod -R u+rwX /home/${{ secrets.SERVER_USER }}/laravel
+#
+#            cd /home/${{ secrets.SERVER_USER }}/laravel
+#            git init
+#            git remote set-url origin https://BaekJinYoung:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/BaekJinYoung/${{ secrets.SERVER_NAME }}.git
+#            git config --global --add safe.directory /home/${{ secrets.SERVER_USER }}/laravel
+#            git fetch
+#            git checkout main
+#            git stash
+#            git pull origin main
+#            composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+#            php artisan migrate --force
+#            php artisan config:cache
+#            php artisan route:cache
+#            php artisan view:cache
+#
+#            sudo chmod 664 composer.json
+#            sudo chown $USER:$USER composer.json
+#            sudo chmod -R 775 ~/laravel
+#            sudo chown $USER:$USER composer.json composer.lock
+#            sudo chown -R $USER:$USER ~/laravel
+#
+#            sudo chown -R www-data:www-data /home/${{ secrets.SERVER_USER }}/laravel/storage
+#            sudo chmod -R 775 /home/${{ secrets.SERVER_USER }}/laravel/storage
+#            sudo chown -R www-data:www-data /home/${{ secrets.SERVER_USER }}/laravel
+#            sudo chmod -R 775 /home/${{ secrets.SERVER_USER }}/laravel
+#            sudo chown -R ${{ secrets.SERVER_USER }}:${{ secrets.SERVER_USER }} /home/${{ secrets.SERVER_USER }}
+#            sudo chmod -R 755 /home/${{ secrets.SERVER_USER }}
+#
+#            sudo usermod -a -G www-data ${{ secrets.SERVER_USER }}
+#            sudo chown -R ${{ secrets.SERVER_USER }}:www-data storage bootstrap/cache
+#            sudo find storage bootstrap/cache -type d -exec chmod 775 {} \;
+#            sudo find storage bootstrap/cache -type f -exec chmod 664 {} \;
+#
+#            sudo systemctl restart nginx
+#
+#            sudo php artisan config:cache
+#            php artisan cache:clear
+#            php artisan config:clear
+#            php artisan route:clear
+#            php artisan view:clear

@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
 
+    {{--    CKEditor    --}}
     <link rel="stylesheet" href="{{ asset('/ckeditor5/ckeditor5.css') }}">
     <link rel="stylesheet" href="{{ asset('/style.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
