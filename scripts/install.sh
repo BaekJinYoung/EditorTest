@@ -33,7 +33,7 @@ install_packages() {
         nginx \
         mysql-server \
         mysql-client \
-        php8.2-cli php8.2-fpm php8.2-mysql php8.2-xml php8.2-mbstring php8.2-curl php8.2-zip php8.2-gd php8.2-bcmath php8.2-sqlite3 \
+        php8.4-cli php8.4-fpm php8.4-mysql php8.4-xml php8.4-mbstring php8.4-curl php8.4-zip php8.4-gd php8.4-bcmath php8.4-sqlite3 \
         phpmyadmin \
         vsftpd \
         certbot \
